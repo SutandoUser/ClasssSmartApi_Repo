@@ -21,58 +21,55 @@ class UserSeeder extends Seeder
                 'email' => "admin@insano.com",
                 'password' => Hash::make("admin1"),
                 "cellphone" => "1111111111",
-                "active" => true
-            ]]);
-
-        User::insert([
+                "active" => true,
+                "id_role" => 1,
+            ],
             [
-                'name' => 'User',
+                'name' => 'Teacher',
                 "lastname" => 'Teacher',
                 'email' => "teacher@insano.com",
                 'password' => Hash::make("teacher1"),
                 "cellphone" => "2222222222",
-                "active" => true
-            ] 
-        ]);
-           
-        User::insert([
-             [
+                "active" => true,
+                "id_role" => 2,
+            ],
+            [
                 'name' => 'User',
                 "lastname" => 'Student',
                 'email' => "studen@insano.com",
                 'password' => Hash::make("student1"),
                 "cellphone" => "3333333333",
-                "active" => true
-            ]
-        ]);
-        User::insert([[
+                "active" => true,
+                "id_role" => 3,
+            ],
+            [
                 'name' => 'User',
                 "lastname" => 'Parent',
                 'email' => "parent@insano.com",
                 'password' => Hash::make("parent1"),
                 "cellphone" => "4444444444",
-                "active" => true
-            ]
-        ]);
+                "active" => true,
+                "id_role" => 4,
+            ],
 
-        User::insert([
              [
                 'name' => 'Yeve',
                 "lastname" => 'Rino',
                 'email' => "yeve@insano.com",
                 'password' => Hash::make("yeve1234"),
                 "cellphone" => "5555555555",
-                "active" => true
-            ]
-        ]);
-
-        User::insert([[
+                "active" => true,
+                "id_role" => 3,
+             ], 
+             [
                 "name" => 'benito',
                 "lastname" => "camela",
                 "email" => "camela@gmail.com",
                 "password" => Hash::make("benito1234"),
                 "cellphone" => "6666666666",
-                "active" => true
-            ]]);
+                "active" => true,
+                "id_role" => 3,
+            ]
+        ]);
     }
 }

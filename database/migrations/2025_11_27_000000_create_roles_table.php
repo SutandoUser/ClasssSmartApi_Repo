@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->enum("role_type",['admin', 'student', 'teacher','parent']);
+            $table->id();;
+            $table->string("description");
             $table->timestamps();
         });
     }

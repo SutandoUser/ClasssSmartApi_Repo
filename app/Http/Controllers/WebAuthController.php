@@ -63,5 +63,30 @@ class WebAuthController extends Controller
         $user = Auth::user();
         return view("profile", ["user" => $user]);
     }
-    
+    ///sadsadasdsaddsadasdsdsadsd
+
+
+
+    public function showLogin(){
+        return view();
+    }
+
+    public function login(Request $request){
+        $request->validate([
+            "email" => "required|string",
+            "password" => "required|string"
+        ]);
+
+        $credentials = $request->only("email", "password");
+        
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            $user = Auth::user(User::with("role"));
+
+            switch($user->id_role){
+                case 1:
+
+            }
+        }
+    }
 }

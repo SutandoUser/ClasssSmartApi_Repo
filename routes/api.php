@@ -12,7 +12,6 @@ Route::get('/user', function (Request $request) {
 
 //Route para UserController
 Route::prefix('users')->group(function () {
-
 Route::get('/', [UserController::class, 'readAll']);
 Route::post("/create", [UserController::class, "create"]);
 Route::get("/{id}", [UserController::class, "readOne"]);

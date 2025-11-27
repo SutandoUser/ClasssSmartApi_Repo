@@ -19,7 +19,8 @@ class UserController extends Controller
             "email"=> "required|email|unique:users",
             "password"=> "required|min:4",
             "cellphone"=> "nullable",
-            "active" => "required"
+            "active" => "required",
+            "id_role" => "required"
         ]);
 
         $data["password"] = Hash::make($data["password"]);
@@ -33,14 +34,15 @@ class UserController extends Controller
 
     public function update($id){
         $user = User::findOrFail($id);
-        $updateData ->update(request()->only([
+        $updateData -> $request->only([
             "name",
             "lastname",
             "email",
             "password",
             "cellphone",
-            "active"
-        ]));
+            "active",
+            "role"
+        ]);
 
         if (!empty($updateData["password"])){
             $updateData["password"] = Hash::make($updateData["password"]);
