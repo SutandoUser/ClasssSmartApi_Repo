@@ -23,7 +23,7 @@ class StudentGroupController extends Controller
         return response()->json(StudentGroup::with("student","group")->findorFail($id));
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
         $studentGroup = StudentGroup::findorFail($id);
         $studentGroup->update(request()->only([
             "student_id",

@@ -23,7 +23,7 @@ class RoleController extends Controller
         return response()->json(Role::with("users")->findOrFail($id));
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $id){
         $role = SRole::findorFail($id);
         $role->update(request()->only([
             "description"

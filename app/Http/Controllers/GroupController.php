@@ -26,9 +26,9 @@ class GroupController extends Controller
         return response()->json(Group::with("owner", "students")->findorFail($id));
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
         $group = Group::findorFail($id);
-        $group->update(request()->only([
+        $group->update($request()->only([
             "owner",
             "name",
             "description",

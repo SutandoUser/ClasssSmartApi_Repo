@@ -32,7 +32,7 @@ class UserController extends Controller
         return response()->json(User::with("role")->findOrFail($id));
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
         $user = User::findOrFail($id);
         $updateData -> $request->only([
             "name",
