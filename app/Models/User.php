@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
         "cellphone",
         "active",
-        "id_role"
+        "role_id"
     ];
 
     /**

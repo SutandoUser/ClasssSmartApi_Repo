@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string("cellphone")->nullable();
             $table->boolean("active")->default(true);
-            $table->foreignId("id_role")->constrained("roles");
+            $table->foreignId("role_id")->constrained("roles");
             $table->rememberToken();
             $table->timestamps();
         });

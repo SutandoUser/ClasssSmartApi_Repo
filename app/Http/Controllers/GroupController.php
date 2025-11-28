@@ -11,7 +11,7 @@ class GroupController extends Controller
         return response()->json(Group::with("owner","students")->get());
     }
 
-    public function create(){
+    public function create(Request $request){
         $data = request()->validate([
             "owner" => "required|exists:users,id",
             "name" => "required|min:3",

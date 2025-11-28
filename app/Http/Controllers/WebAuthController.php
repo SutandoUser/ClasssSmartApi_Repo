@@ -13,7 +13,6 @@ use Carbon\Carbon;
 class WebAuthController extends Controller
 {
     public function webRegister(Request $request){
-
     $request->validate([
         "name" => "required|min:3",
         "lastname" => "required|min:3",
@@ -36,39 +35,18 @@ class WebAuthController extends Controller
     return back()->withErrors(["error"=>"Error en el registro, intenta de nuevo"]);
     }
 
-    public function webLogin(Request $request){
-        if(Auth::attempt($request->only("email","password"))){
-            return back()->with("errors", "credenciales invalidas/incorrectas");
-        }
-        UserSession::create([
-            "user_id" => Auth::id(),
-            "device_id" => "web_device",
-            "ip_address"=> $request->ip(),
-            "login_at" => Carbon::now()
-        ]);
-
-        return redirect("/dashboard");
-    }
-
-    public function logout(Request $request){
-        UserSession::where("user_id",Auth::id())
-            ->latest()
-            ->first()
-            ->update(["logout_at" => Carbon::now()]);
-        Auth::guard("web")->logout();
-        return redirect("/login");
-    }
-
     public function profile(){
         $user = Auth::user();
         return view("profile", ["user" => $user]);
     }
+
+   
     ///sadsadasdsaddsadasdsdsadsd
 
 
 
     public function showLogin(){
-        return view();
+        return view("auth.login");
     }
 
     public function login(Request $request){
@@ -81,12 +59,32 @@ class WebAuthController extends Controller
         
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            $user = Auth::user(User::with("role"));
-
-            switch($user->id_role){
-                case 1:
-
+            $user = Auth::user();
+            switch($user->role_id){
+                //caso admin
+                case 1: 
+                    return redirect()->route("admin.home");
+                 //caso teacher
+                case 2:
+                    return redirect()->route("teacher.home");
+                //caso student
+                case 3:
+                    return redirect()->route("student.home");
+                //caso parent
+                case 4:
+                    return redirect()->route("parent.home");
+                default:
+                    return redirect()->intended("auth.login");
             }
+        }else{
+        return back()->withErrors([
+            "error"=> "Credenciales incorrectas"
+        ]);
         }
+    }
+
+    public function logout(Request $request){
+        Auth::guard("web")->logout();
+        return redirect("/login");
     }
 }

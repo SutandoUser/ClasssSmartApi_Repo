@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make("admin1"),
                 "cellphone" => "1111111111",
                 "active" => true,
-                "id_role" => 1,
+                "role_id" => 1,
             ],
             [
                 'name' => 'Teacher',
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make("teacher1"),
                 "cellphone" => "2222222222",
                 "active" => true,
-                "id_role" => 2,
+                "role_id" => 2,
             ],
             [
                 'name' => 'User',
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make("student1"),
                 "cellphone" => "3333333333",
                 "active" => true,
-                "id_role" => 3,
+                "role_id" => 3,
             ],
             [
                 'name' => 'User',
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make("parent1"),
                 "cellphone" => "4444444444",
                 "active" => true,
-                "id_role" => 4,
+                "role_id" => 4,
             ],
 
              [
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make("yeve1234"),
                 "cellphone" => "5555555555",
                 "active" => true,
-                "id_role" => 3,
+                "role_id" => 3,
              ], 
              [
                 "name" => 'benito',
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
                 "password" => Hash::make("benito1234"),
                 "cellphone" => "6666666666",
                 "active" => true,
-                "id_role" => 3,
+                "role_id" => 3,
             ]
         ]);
     }

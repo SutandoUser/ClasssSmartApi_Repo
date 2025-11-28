@@ -10,7 +10,7 @@ class StudentGroupController extends Controller
         return response()->json(StudentGroup::with("student","group")->get());
     }
 
-    public function create(){
+    public function create(Request $request){
         $data = request()->validate([
             "student_id" => "required|exists:users,id",
             "group_id" => "required|exists:groups,id"

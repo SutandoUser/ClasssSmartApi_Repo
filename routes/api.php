@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\StudentGroupController;
+use App\Http\Controllers\RoleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -34,4 +35,13 @@ Route::get("/", [StudentGroupController::class, "readAll"]);
 Route::post("/create", [StudentGroupController::class, "create"]);
 Route::get("/{id}", [StudentGroupController::class, "readOne"]);
 Route::put("/{id}", [StudentGroupController::class, "update"]);
+});
+
+//Route para Roles
+
+Route::prefix("roles")->group(function(){
+Route::get("/", [RoleController::class, "readAll"]);
+Route::post("/create", [RoleController::class, "create"]);
+Route::get("/{id}", [RoleController::class, "readOne"]);
+Route::put("/{id}", [RoleController::class, "update"]);
 });

@@ -12,7 +12,7 @@ class UserController extends Controller
         return response()->json(User::with("role")->get());
     }
 
-     public function create(){
+     public function create(Request $request){
         $data = request()->validate([
             "name" => "required|min:3",
             "lastname" => "required|min:3",
@@ -41,7 +41,7 @@ class UserController extends Controller
             "password",
             "cellphone",
             "active",
-            "role"
+            "id_role"
         ]);
 
         if (!empty($updateData["password"])){

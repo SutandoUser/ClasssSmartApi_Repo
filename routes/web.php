@@ -9,42 +9,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name("register");
-
-Route::get('/login', function () {
-    return view('auth.login');
-})->name("login");
-
-Route::get('/dashboard', function(){
-    return view('dashboard');
-});
-
-Route::post('/register', [WebAuthController::class, 'webRegister']);
-Route::post('/login', [WebAuthController::class, 'webLogin']);
 /*
 Route::post('/logout', [WebAuthController::class, 'logout'])->middleware(AuthenticatedMiddleware::class);
 Route::get('/profile', [WebAuthController::class, 'profile'])->middleware(AuthenticatedMiddleware::class);
 */
 
-Route::get("/login", [WebAuthController::class, "s"]);
+Route::get("/login", [WebAuthController::class, "showLogin"]);
+Route::post("/login", [WebAuthController::class, "login"]);
+Route::post("/logout", [WebAuthController::class, "logout"]);
 
 Route::middleware("auth")->group(function(){
-    Route::get("", function(){
-        return view();
-    })->name("");
+    Route::get("/admin/home", function(){
+        return view("admin.home");
+    })->name("admin.home");
 
-       Route::get("", function(){
-        return view();
-    })->name("");
+       Route::get("/teacher.home", function(){
+        return view("teacher.home");
+    })->name("teacher.home");
 
-   Route::get("", function(){
-        return view();
-    })->name("");
+   Route::get("/student/home", function(){
+        return view("student.home");
+    })->name("student.home");
 
-   Route::get("", function(){
-        return view();
-    })->name("");
+   Route::get("/parent/home", function(){
+        return view("parent.home");
+    })->name("parent.home");
 
 });
