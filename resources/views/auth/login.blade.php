@@ -20,19 +20,22 @@
             </div>
 
             <h2 class="login">Log In</h2>
-            
-            <form>
+
+            <form method="POST" action="login">
+                @csrf
                 <div>
-                    <label for="Email"></label>
-                    <input type="text" id="Email" class="nueva" placeholder="Ingresa tu correo electronico">
+                    <label for="email"></label>
+                    <input type="text" id="Email" name ="email" class="nueva" placeholder="Ingresa tu correo electronico">
                 </div>
 
                 <div>
-                    <label for="Password"></label>
-                    <input type="password" id="Password" class="nueva" placeholder="Ingresa tu Contraseña">
+                    <label for="password"></label>
+                    <input type="password" id="Password" name="password" class="nueva" placeholder="Ingresa tu Contraseña">
                 </div>
 
                 <button class="button-rio">Log In</button>
+                
+                <a href="#" class="olvide">¿Olvidaste tu contraseña?</a>
             </form>
 
         </div>

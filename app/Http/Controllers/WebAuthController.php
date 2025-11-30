@@ -6,85 +6,73 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Models\UserSession;
-use Carbon\Carbon;
-
 
 class WebAuthController extends Controller
 {
+    // Registro solo para admin
     public function webRegister(Request $request){
-    $request->validate([
-        "name" => "required|min:3",
-        "lastname" => "required|min:3",
-        "email"=> "required|email|unique:users",
-        "password"=> "required|min:4",
-        "cellphone"=> "nullable",
-        "active" => "required|boolean",
-    ]);
-    $user = User::create([
-        "name" => $request->name,
-        "lastname" => $request->lastname,
-        "email" => $request->email,
-        "password" => Hash::make($request->password),
-        "cellphone" => $request->cellphone,
-        "active" => $request->active
-    ]);
-    if($user){
-        return redirect("/login")-> with("success","Registro exitoso, todo en orden apa");
-    }
-    return back()->withErrors(["error"=>"Error en el registro, intenta de nuevo"]);
+        $user = Auth::user();
+        if(!$user || $user->role_id != 1){
+            return redirect()->route('login')->withErrors(['error' => 'Solo admin puede registrar usuarios.']);
+        }
+
+        $request->validate([
+            'name' => 'required|min:3',
+            'lastname' => 'required|min:3',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:4|confirmed',
+            'cellphone' => 'nullable',
+            "role_id" => "required"
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'cellphone' => $request->cellphone,
+            "role_id" => $request->role_id
+        ]);
+
+        return redirect('/admin/home')->with('success', 'Usuario registrado por admin');
     }
 
     public function profile(){
-        $user = Auth::user();
-        return view("profile", ["user" => $user]);
+        return view('profile', ['user' => Auth::user()]);
     }
 
-   
-    ///sadsadasdsaddsadasdsdsadsd
-
-
-
     public function showLogin(){
-        return view("auth.login");
+        return view('auth.login');
     }
 
     public function login(Request $request){
         $request->validate([
-            "email" => "required|string",
-            "password" => "required|string"
+            'email' => 'required|string',
+            'password' => 'required|string'
         ]);
 
-        $credentials = $request->only("email", "password");
-        
-        if(Auth::attempt($credentials)){
+        if(Auth::attempt($request->only('email','password'))){
             $request->session()->regenerate();
             $user = Auth::user();
-            switch($user->role_id){
-                //caso admin
-                case 1: 
-                    return redirect()->route("admin.home");
-                 //caso teacher
+            switch ($user->role_id) {
+                case 1:
+                    return redirect()->route('admin.home');
                 case 2:
-                    return redirect()->route("teacher.home");
-                //caso student
+                    return redirect()->route('teacher.home');
                 case 3:
-                    return redirect()->route("student.home");
-                //caso parent
+                    return redirect()->route('student.home');
                 case 4:
-                    return redirect()->route("parent.home");
+                    return redirect()->route('parent.home');
                 default:
-                    return redirect()->intended("auth.login");
-            }
-        }else{
-        return back()->withErrors([
-            "error"=> "Credenciales incorrectas"
-        ]);
+                    return redirect()->route('login');
+    }
         }
+
+        return back()->withErrors(['error'=>'Credenciales incorrectas']);
     }
 
     public function logout(Request $request){
-        Auth::guard("web")->logout();
-        return redirect("/login");
+        Auth::logout();
+        return redirect('/login');
     }
 }

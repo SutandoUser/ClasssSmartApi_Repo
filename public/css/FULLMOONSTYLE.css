@@ -163,6 +163,11 @@ header h1 {
   gap: 20px;
   justify-content: center;
 }
+.center-container {
+    margin-left: 0 !important;
+    display: flex;
+    justify-content: center;
+}
 
 .form-group {
   width: 45%;

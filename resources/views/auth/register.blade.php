@@ -2,54 +2,66 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="css/FULLMOONSTYLE.css">
 </head>
-
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 class="text-2xl font-bold text-center mb-6">Crear cuenta</h2>
-        @if (session('errors'))
-            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                {{ session('errors') }}
-            </div>
-        @endif
-
-        <form id="registerForm" method="POST" action="/register">
+<body>
+    <header>
+        <h1>Registro de Usuario</h1>
+    </header>
+    <div class="box" style="max-width: 900px; margin: 40px auto;">
+        <h2 style="text-align:center;">Crear nueva cuenta</h2>
+        <div class="separator"></div>
+        <form id="registerForm" method="POST" action="/register" style="margin-top: 20px;">
             @csrf
-            <label class="block mb-2 font-semibold">Nombre</label>
-            <input id="name" name="name" type="text"
-                class="w-full border rounded px-3 py-2 mb-4 focus:ring focus:ring-green-300"
-                placeholder="Nombre">
-            <label class="block mb-2 font-semibold">Apellido</label>
-            <input id="lastname" name="lastname" type="text"
-                class="w-full border rounded px-3 py-2 mb-4 focus:ring focus:ring-green-300"
-                placeholder="Apellido">
-            <label class="block mb-2 font-semibold">Correo electrónico</label>
-            <input id="email" name="email" type="email"
-                class="w-full border rounded px-3 py-2 mb-4 focus:ring focus:ring-green-300"
-                placeholder="ejemplo@correo.com">
-            <label class="block mb-2 font-semibold">Contraseña</label>
-            <input id="password" name="password" type="password"
-                class="w-full border rounded px-3 py-2 mb-4 focus:ring focus:ring-green-300"
-                placeholder="******">
-            <label class="block mb-2 font-semibold">Confirmar contraseña</label>
-            <input id="password_confirmation" name="password_confirmation" type="password"
-                class="w-full border rounded px-3 py-2 mb-4 focus:ring focus:ring-green-300"
-                placeholder="******">
-            <button type="submit"
-                class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition">
-                Registrarme
-            </button>
-        </form>
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="lbl">Nombre</label>
+                    <input id="name" type="text" name="name" class="input-registro" placeholder="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <label class="lbl">Apellido</label>
+                    <input id="lastname" type="text" name="lastname" class="input-registro" placeholder="Apellido" required>
+                </div>
+                <div class="form-group">
+                    <label class="lbl">Correo electrónico</label>
+                    <input id="email" type="email" name="email" class="input-registro" placeholder="correo@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="lbl">Teléfono (opcional)</label>
+                    <input id="cellphone" type="tel" name="cellphone" class="input-registro" placeholder="Teléfono (opcional)">
+                </div>
+                <div class="form-group">
+                    <label class="lbl">Rol</label>
+                    <select id="role" name="role_id" class="input-registro" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Profesor</option>
+                        <option value="3">Estudiante</option>
+                        <option value="4">Padre/Madre</option>
+                    </select>
+                </div>
+                <!-- Contraseña -->
+                <div class="form-group">
+                    <label class="lbl">Contraseña</label>
+                    <input id="password" type="password" name="password" class="input-registro" placeholder="******" required>
+                </div>
+                <!-- Confirmación -->
+                <div class="form-group">
+                    <label class="lbl">Confirmar contraseña</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" class="input-registro" placeholder="******" required>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="button-jumena" type="submit" style="font-size: 20px; padding: 12px 40px;">
+                    Confirmar Registro
+                </button>
+            </div>
 
-        <p class="mt-4 text-center text-sm">
-            ¿Ya tienes cuenta?
-            <a href="/login" class="text-blue-600 font-semibold">Iniciar sesión</a>
-        </p>
+        </form>
     </div>
 
+    <!-- VALIDACIÓN JAVASCRIPT -->
     <script>
         document.getElementById("registerForm").addEventListener("submit", function(e) {
 
@@ -58,25 +70,28 @@
             let email = document.getElementById("email").value.trim();
             let password = document.getElementById("password").value.trim();
             let pass2 = document.getElementById("password_confirmation").value.trim();
+            let role = document.getElementById("role").value.trim();
 
-            if (name === "" || lastname === "" || email === "" || password === "" || pass2 === "") {
+            // Campos obligatorios
+            if (!name || !lastname || !email || !password || !pass2 || !role) {
                 e.preventDefault();
-                alert("Todos los campos son obligatorios");
+                alert("Por favor completa todos los campos obligatorios.");
                 return;
             }
 
             if (password.length < 6) {
                 e.preventDefault();
-                alert("La contraseña debe tener mínimo 6 caracteres");
+                alert("La contraseña debe tener al menos 6 caracteres.");
                 return;
             }
 
             if (password !== pass2) {
                 e.preventDefault();
-                alert("Las contraseñas no coinciden");
+                alert("Las contraseñas no coinciden.");
                 return;
             }
         });
     </script>
+
 </body>
 </html>
