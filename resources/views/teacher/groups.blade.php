@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="/css/FULLMOONSTYLE.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <body>
   <div id="Lateral">
@@ -34,13 +34,9 @@
             <h2 style="padding-left: 20px;">  Grupos  </h2>
         </div>
         <div class="d-flex justify-content-end col-6" style="padding-right: 20px; gap: 15px;">
-            <a class="link" href="CrearClaseProfesor1.html">
+            <a class="link">
                 <span class="material-symbols-rounded link-icon">add_circle</span>
                 <span class="link-title">Nuevo grupo</span>
-            </a>
-            <a class="link" href="#">
-                <span class="material-symbols-rounded link-icon">edit</span>
-                <span class="link-title">Editar</span>
             </a>
         </div>
     </div>
@@ -52,18 +48,40 @@
     <div class="container py-3 d-flex align-items-center"style="background-color: var(--color-cuadros); border-radius: 20px;">
         <div class="row w-100">
             <div class="col-6 d-flex align-items-center">
-                <h4 style="padding-left: 20px;">| Grupo A</h4>
+                <!--Inicio DESMADRE DINAMICO-->
+                <div class="row">
+                    @foreach($groups as $group)
+                    <div class="col-12 mx-auto mt-4">
+                        <div class="container py-3 d-flex align-items-center"style="background-color: var(--color-cuadros); border-radius: 20px;">
+        <div class="row w-100">
+            <div class="col-6 d-flex align-items-center">
+                <h4 style="padding-left: 20px;">| {{ $group->name }}</h4>
             </div>
-            <div class="col-6 d-flex justify-content-end" style="gap: 15px;">
+            <div class="col-8 d-flex justify-content-end" style="gap: 10px;">
+                <!-- Ver grupo (mostrar alumnos) -->
+                <a class="link" href="{{ route('teacher.groups.show', $group->id) }}">
+                    <span class="material-symbols-rounded link-icon">group</span>
+                    <span class="link-title">Ver Grupo</span>
+                </a>
+                <!-- Nuevo alumno -->
                 <a class="link" href="#">
                     <span class="material-symbols-rounded link-icon">person_add</span>
                     <span class="link-title">Nuevo alumno</span>
                 </a>
+                <!-- Editar Grupo -->
                 <a class="link" href="#">
                     <span class="material-symbols-rounded link-icon">edit</span>
-                    <span class="link-title">Editar grupo</span>
+                    <span class="link-title">Editar</span>
                 </a>
             </div>
+        </div>
+    </div>
+</div>
+@endforeach
+</div>
+<!--FIN DESMADRE DINAMICO-->
+</div>
+           
         </div>
     </div>
 </div>

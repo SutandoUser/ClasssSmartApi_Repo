@@ -163,11 +163,6 @@ header h1 {
   gap: 20px;
   justify-content: center;
 }
-.center-container {
-    margin-left: 0 !important;
-    display: flex;
-    justify-content: center;
-}
 
 .form-group {
   width: 45%;
@@ -215,4 +210,57 @@ header h1 {
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   opacity: 0.9;
+}
+
+/*  BOTONES EXPANDIBLES PARA EL BODY  */
+
+.link {
+  display: flex;
+  align-items: center;
+  width: 45px;           /* tamaño cerrado */
+  height: 50px;
+  background-color: var(--color-fondo-morado); /* o el color que quieras */
+  border-radius: 15px;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  padding-left: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ▸ ANIMACIÓN AL PASAR EL MOUSE */
+.link:hover {
+  width: 180px;                 /* tamaño expandido */
+  background-color: #5C77B1;    /* el color que dijiste */
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+
+/* ICONO */
+.link .link-icon {
+  font-family: "Material Symbols Rounded";
+  font-size: 26px;
+  margin-right: 12px;
+  transition: transform 0.3s ease;
+}
+
+/* Icono crece */
+.link:hover .link-icon {
+  transform: scale(1.15);
+}
+
+/* TEXTO — invisible al inicio */
+.link .link-title {
+  opacity: 0;
+  transform: translateX(10px);
+  font-size: 15px;
+  white-space: nowrap;
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+/* visible al hover */
+.link:hover .link-title {
+  opacity: 1;
+  transform: translateX(0);
 }

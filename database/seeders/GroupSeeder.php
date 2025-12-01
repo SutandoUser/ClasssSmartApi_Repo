@@ -16,19 +16,19 @@ class GroupSeeder extends Seeder
         Group::insert([
             [
                 'name' => 'Narcologia',
-                "owner" => 3,
+                "owner" => 2,
                 'description' => 'No se armo apa',
                 'active' => true
             ],
             [
                 'name' => 'Tirar Vibra',
-                "owner" => 3,
+                "owner" => 2,
                 'description' => 'Tu ya sabe hemano',
                 'active' => true
             ],
             [
                 'name' => 'Movil',
-                "owner" => 3,
+                "owner" => 2,
                 'description' => 'Mejor Cagada Bro',
                 'active' => true
             ],

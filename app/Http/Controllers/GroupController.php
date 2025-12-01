@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Group;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -42,5 +43,32 @@ class GroupController extends Controller
         $group->active = false;
         $group->save();
         return response()->json(["message" => "Grupo desactivado"]);
+    }
+
+
+    //Aqui empieza el desmadre de Web
+
+    // Listar grupos del profesor
+    public function index()
+    {
+        $teacher = Auth::user();
+
+        // Los grupos donde el Usuario(el teacher) es el owner
+        $groups = Group::where('owner', $teacher->id)->get();
+
+        return view('teacher.groups', compact('groups'));
+    }
+
+    
+    // Mostrar un grupo en detalle
+    public function show($groupId)
+    {
+        $group = Group::with('students')->findOrFail($groupId);
+
+        if ($group->owner != Auth::id()) {
+            abort(403, "Este grupo no es tuyo papu");
+        }
+
+        return view('teacher.group-detail', compact('group'));
     }
 }

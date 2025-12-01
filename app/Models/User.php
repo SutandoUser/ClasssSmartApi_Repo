@@ -61,4 +61,12 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class);
     }
+
+    public function teacherGroups(){
+        return $this->hasMany(Group::class);
+    }
+
+    public function studentGroups(){
+        return $this->belongsToMany(Group::class);
+    }
 }

@@ -38,7 +38,6 @@ Route::put("/{id}", [StudentGroupController::class, "update"]);
 });
 
 //Route para Roles
-
 Route::prefix("roles")->group(function(){
 Route::get("/", [RoleController::class, "readAll"]);
 Route::post("/create", [RoleController::class, "create"]);
