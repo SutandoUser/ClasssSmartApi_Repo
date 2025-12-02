@@ -55,8 +55,20 @@ class WebAuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string'
         ]);
-
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return back()->withErrors([
+                'error' => 'Correo o contraseña incorrectos',
+            ]);
+        }
+        if (!$user->active) {
+            return back()->withErrors([
+                'error' => 'Tu cuenta está desactivada. Contacta al administrador.',
+            ]);
+        }
+        
         if(Auth::attempt($request->only('email','password'))){
+            
             $request->session()->regenerate();
             $user = Auth::user();
             switch ($user->role_id) {
@@ -76,7 +88,7 @@ class WebAuthController extends Controller
     }
 
     //DESACTIVACION
-    //Mostrar Fomrulario de Desactivacion
+    //Mostrar Fomrmulario de Desactivacion
     public function showDeactivateForm(){
         $roles = Role::all();
         return view("auth.deactivate", compact("roles"));

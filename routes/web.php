@@ -2,7 +2,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebAuthController;
 use App\Http\Controllers\GroupController;
-
+//Esto lo hizo paloma
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\ConfigurationController;
 
 
 Route::get('/', function () {
@@ -12,12 +15,24 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function(){
     Route::get('/login', [WebAuthController::class,'showLogin'])->name('login');
     Route::post('/login', [WebAuthController::class,'login']);
+
+    //CONTRASEÑAS
+    Route::get('/forgot-password', [PasswordResetController::class, 'showForgotPassword'])->name('forgotPassword');
+    Route::post('/forgot-password', [PasswordResetController::class, 'store'])->name('password.email');
+    Route::get('/reset-password/{token}', [NewPasswordController::class, 'showResetPassword'])->name('password.reset');
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 });
 
 //PARA LOS QUE YA ESTAN LOGGEADOS
 Route::middleware('auth')->group(function(){
     Route::post('/logout', [WebAuthController::class,'logout'])->name('logout');
     Route::get('/profile', [WebAuthController::class,'profile'])->name('profile');
+
+    //CONFIGURACION
+    Route::get('/configuration/profile', [ConfigurationController::class, 'showConfiguration_profile'])->name('configuration.profile');
+    Route::get('/configuration/notifications', [ConfigurationController::class, 'showConfiguration_notifications'])->name('configuration.notifications');
+    Route::post('/configuration/update', [ConfigurationController::class, 'update'])->name('configuration.update');
+    Route::post('/configuration/update-password', [ConfigurationController::class, 'updatePassword'])->name('configuration.updatePassword');
 });
 
 //COSAS PARA PURO ADMIN
@@ -83,6 +98,9 @@ Route::middleware(['auth','role:3'])->group(function(){
 // PURO PARENT
 Route::middleware(['auth','role:4'])->group(function(){
     Route::get('/parent/home', function(){ return view('parent.home'); })->name('parent.home');
+    Route::get("/parent/students", function(){return view("parent.students");})->name("parent.students");
+    Route::get("/parent/grades", function(){return view("parent.grades");})->name("parent.grades");
+    Route::get("/parent/forum", function(){return view("parent.forum");})->name("parent.forum");
 });
 
 Route::get('/force-logout', function(){

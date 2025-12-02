@@ -13,7 +13,7 @@
    <ul style="list-style-type: none; padding: 0; text-align: center;">
       <li><a href="{{route('teacher.home')}}" class="links">INICIO</a></li>
       <div class="fade-separator"></div>
-      <li><a href="{{route('profile')}}" class="links">PERFIL</a></li>
+      <li><a href="{{route('configuration.profile')}}" class="links">PERFIL</a></li>
       <div class="fade-separator"></div>
       <li><a href="{{route('teacher.groups')}}" class="links">GRUPOS</a></li>
       <div class="fade-separator"></div>
@@ -23,7 +23,7 @@
       <div class="fade-separator"></div>
       <li><a href="{{route('teacher.messages')}}" class="links">MENSAJES</a></li>
       <div class="fade-separator"></div>
-      <li><a href="{{route('teacher.home')}}" class="links">CONFIGURACIÓN</a></li>
+      <li><a href="{{route('configuration.notifications')}}" class="links">CONFIGURACIÓN</a></li>
     </ul>
   </div>
 <div class="col-11 d-flex justify-content-center mt-2" style="padding-left: 100px;">

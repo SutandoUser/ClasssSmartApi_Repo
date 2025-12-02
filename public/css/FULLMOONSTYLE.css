@@ -100,9 +100,9 @@ header h1 {
 
 /* Separador */
 .fade-separator {
-  width: 85%;
+  width: 100%;
   height: 2px;
-  margin: 1px;
+  margin: 2px;
   background: linear-gradient(
     to right,
     rgba(206,213,228,0) 0%,
