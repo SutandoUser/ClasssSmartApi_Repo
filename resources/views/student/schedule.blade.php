@@ -29,11 +29,6 @@
     </ul>
   </div>
 <div class="col-11 d-flex justify-content-center mt-2" style="padding-left: 100px;">
-  <div class="container d-flex justify-content-center mt-5" style="background-color: var(--color-test); border-radius: 20px; height: 80px; padding-top: 20px;">
-     <h2> ESTUDIANTE  </h2>
-  </div>
-</div>
-<div class="col-11 d-flex justify-content-center mt-2" style="padding-left: 100px;">
 <div class="container d-flex flex-column align-items-center mt-5" style="background-color: var(--color-cuadros); border-radius: 20px; height: 400px;">
       <div class="col-11 d-flex justify-content-center mt-2" style="background-color: var(--color-test); border-radius: 20px; height: 40px; padding-top: 5px;">
      <h4>  Horario  </h4>

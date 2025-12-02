@@ -14,7 +14,6 @@ class ConfigurationController extends Controller
     }
 
     public function showConfiguration_notifications(){
-        $user = Auth::user();
         return view('configuration_notifications');
     }
 

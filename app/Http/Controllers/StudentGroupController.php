@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\StudentGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentGroupController extends Controller
 {
@@ -31,4 +32,31 @@ class StudentGroupController extends Controller
         ]));
         return response()->json($studentGroup);
     }
+
+
+    // Listar los grupos del estudiante
+    public function index()
+    {
+        $student = Auth::user();
+
+        // Los grupos donde el estudiante está inscrito
+        $groups = $student->studentGroups()->with('owner')->get();
+
+        return view('student.groups', compact('groups'));
+    }
+
+    // Mostrar detalle de un grupo específico
+    public function show($groupId)
+    {
+        $group = Group::with('students', 'owner')->findOrFail($groupId);
+
+        // Validar que el estudiante pertenezca al grupo
+        if (!$group->students->contains(Auth::id())) {
+            abort(403, "No perteneces a este grupo.");
+        }
+
+        return view('student.group-detail', compact('group'));
+    }
+
+
 }

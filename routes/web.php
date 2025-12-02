@@ -6,6 +6,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\StudentGroupController;
 
 
 Route::get('/', function () {
@@ -81,7 +82,17 @@ Route::middleware(['auth','role:2'])->group(function(){
     Route::post('/teacher/groups/create', [GroupController::class, 'webCreateGroup'])->name('teacher.groups.createGroup');
 
     //Agregar Alumno a grupo
-    
+    Route::post('/teacher/groups/{groupId}/add-students',[GroupController::class, 'addStudents']
+    )->name('teacher.groups.addStudents'); 
+
+    // GET Alumnos disponibles para asignar a un grupo
+    Route::get('/teacher/groups/{groupId}/available-students',[GroupController::class, 'availableStudents']
+    )->name('teacher.groups.availableStudents');
+
+    // Actualizar grupo vía AJAX
+    Route::post('/teacher/groups/{groupId}/update', [GroupController::class, 'webUpdateGroup'])->name('teacher.groups.update');
+
+
     //MENSAJES
     Route::get('/teacher/messages', function(){ return view('teacher.messages'); })->name('teacher.messages');
 
@@ -89,17 +100,34 @@ Route::middleware(['auth','role:2'])->group(function(){
     Route::get("/teacher/notifications", function(){return view("teacher.notifications");})->name("teacher.notifications");
 });
 
+
 // PURO STUDENT
 Route::middleware(['auth','role:3'])->group(function(){
     Route::get('/student/home', function(){ return view('student.home'); })->name('student.home');
+    
+    // Grupos
+    Route::get("/student/groups", [StudentGroupController::class, 'index'])->name("student.groups");
+    Route::get("/student/groups/{groupId}", [StudentGroupController::class, 'show'])->name("student.groups.show");
+    
+    // Foro
+    Route::get("/student/forum", function(){return view("student.forum");})->name("student.forum");
+    
+    // Schedule
+    Route::get("/student/schedule", function(){return view("student.schedule");})->name("student.schedule");
+    
+    // Homework
+    Route::get("/student/homework", function(){return view("student.homework");})->name("student.homework");
+    //Messages
+    Route::get("/student/messages", function(){return view("student.messages");})->name("student.messages");
 });
+
 
 // PURO PARENT
 Route::middleware(['auth','role:4'])->group(function(){
     Route::get('/parent/home', function(){ return view('parent.home'); })->name('parent.home');
-    Route::get("/parent/students", function(){return view("parent.students");})->name("parent.students");
     Route::get("/parent/grades", function(){return view("parent.grades");})->name("parent.grades");
     Route::get("/parent/forum", function(){return view("parent.forum");})->name("parent.forum");
+    Route::get("/parent/students", function(){return view("parent.students");})->name("parent.students");
 });
 
 Route::get('/force-logout', function(){

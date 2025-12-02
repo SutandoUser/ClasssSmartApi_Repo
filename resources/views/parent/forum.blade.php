@@ -24,7 +24,7 @@
             </div>
             <div class="col-11 d-flex justify-content-center mt-2" style="padding-left: 100px;">
                   <div class="container d-flex justify-content-center mt-5" style="background-color: var(--color-test); border-radius: 20px; height: 80px; padding-top: 20px;">
-                        <h2> Home Padre  </h2>
+                        <h2> Foro Padre  </h2>
                   </div>
             </div>
       </div>  

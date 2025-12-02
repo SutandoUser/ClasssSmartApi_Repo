@@ -34,7 +34,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id){
         $user = User::findOrFail($id);
-        $updateData -> $request->only([
+        $updateData = $request->only([
             "name",
             "lastname",
             "email",

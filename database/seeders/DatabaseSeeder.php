@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             GroupSeeder::class,
-            StudentGroupSeeder::class,
         ]);
     }
 }

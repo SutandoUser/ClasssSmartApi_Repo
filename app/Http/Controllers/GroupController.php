@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class GroupController extends Controller
 {
@@ -90,6 +91,54 @@ class GroupController extends Controller
             "succes", "Grupo Creado Correctamente"
         );
     }
-    
+
+    //Alumnos disponibles para agregar
+    public function availableStudents($groupId){
+        $group = Group::findOrFail($groupId);
+        // Alumnos (role_id = 3) que NO tienen asignado este grupo
+        $students = User::where('role_id', 3)->whereDoesntHave('studentGroups', function($q) use ($groupId){
+                $q->where('group_id', $groupId);
+            })->get();
+        return response()->json($students);
+    }
+
+    //agregarAlumno a Grupo
+    public function addStudents(Request $request, $groupId){
+        $request->validate([
+            'students' => 'required|array',
+            'students.*' => 'exists:users,id'
+        ]);
+        $group = Group::findOrFail($groupId);
+
+    // Agregar múltiples alumnos de un jalón
+        $group->students()->attach($request->students);
+        return redirect()->route('teacher.groups')->with(
+            'success', 'Alumnos agregados correctamente'
+        );
+    }
+
+    //ACTUALIZAR GRUPO
+    public function webUpdateGroup(Request $request, $groupId){
+        $group = Group::findOrFail($groupId);
+
+        if ($group->owner != Auth::id()) {
+            return response()->json(["error" => "Este grupo no es tuyo"], 403);
+        }
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $group->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'group' => $group
+        ]);
+    }
 
 }

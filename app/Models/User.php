@@ -67,6 +67,6 @@ class User extends Authenticatable
     }
 
     public function studentGroups(){
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class, "student_groups", "student_id", "group_id");
     }
 }
