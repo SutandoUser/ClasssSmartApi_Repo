@@ -82,7 +82,6 @@ Route::middleware(['auth','role:2'])->group(function(){
 
     //Agregar Alumno a grupo
     
-    
     //MENSAJES
     Route::get('/teacher/messages', function(){ return view('teacher.messages'); })->name('teacher.messages');
 
