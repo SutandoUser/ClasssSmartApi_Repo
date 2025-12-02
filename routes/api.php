@@ -40,6 +40,7 @@ Route::put("/{id}", [StudentGroupController::class, "update"]);
 //Route para Roles
 Route::prefix("roles")->group(function(){
 Route::get("/", [RoleController::class, "readAll"]);
+Route::get("/resumen", [RoleController::class, 'resumen']);
 Route::post("/create", [RoleController::class, "create"]);
 Route::get("/{id}", [RoleController::class, "readOne"]);
 Route::put("/{id}", [RoleController::class, "update"]);

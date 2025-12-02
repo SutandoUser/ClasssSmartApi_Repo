@@ -71,4 +71,25 @@ class GroupController extends Controller
 
         return view('teacher.group-detail', compact('group'));
     }
+
+    //Crear Grupo
+    public function webCreateGroup(Request $request){
+        $request->validate([
+            "name" => "required",
+            "description" => "required"
+        ]);
+
+        Group::create([
+            "owner" => Auth::id(),
+            "name" => $request->name,
+            "description" => $request->description,
+            "active" => true
+        ]);
+
+        return redirect()->route("teacher.groups")->with(
+            "succes", "Grupo Creado Correctamente"
+        );
+    }
+    
+
 }

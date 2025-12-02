@@ -31,4 +31,11 @@ class RoleController extends Controller
         return response()->json($role);
     }
 
+    public function resumen() {
+    $roles = Role::withCount('users')
+                 ->get();
+
+    return response()->json($roles);
+}
+
 }

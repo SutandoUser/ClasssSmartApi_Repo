@@ -45,16 +45,33 @@ Route::middleware(['auth','role:1'])->group(function(){
 
 // PURO TEACHER
 Route::middleware(['auth','role:2'])->group(function(){
+    
+    //HOME
     Route::get('/teacher/home', function(){ return view('teacher.home'); })->name('teacher.home');
+    
+    //HOMEWORK TAB
     Route::get("/teacher/homeworktab", function(){return view("teacher.homeworktab");})->name("teacher.homework");
+    
+    //FORO
     Route::get('/teacher/forum', function(){ return view('teacher.forum'); })->name('teacher.forum');
 
+    //Grupos
     //Route::get("/teacher/groups", function(){return view("teacher.groups");})->name("teacher.groups");
+    //vista de teacher grupos, se cambio para que fuera dinamico 
     Route::get("/teacher/groups", [GroupController::class, 'index'])->name("teacher.groups");
+    //mostrar grupos
     Route::get("/teacher/groups/{groupId}", [GroupController::class, 'show'])->name("teacher.groups.show");
+
+    //crear nuevo grupo
+    Route::post('/teacher/groups/create', [GroupController::class, 'webCreateGroup'])->name('teacher.groups.createGroup');
+
+    //Agregar Alumno a grupo
     
     
+    //MENSAJES
     Route::get('/teacher/messages', function(){ return view('teacher.messages'); })->name('teacher.messages');
+
+    //NOTIFICACIONES
     Route::get("/teacher/notifications", function(){return view("teacher.notifications");})->name("teacher.notifications");
 });
 

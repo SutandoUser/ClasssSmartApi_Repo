@@ -34,7 +34,7 @@
             <h2 style="padding-left: 20px;">  Grupos  </h2>
         </div>
         <div class="d-flex justify-content-end col-6" style="padding-right: 20px; gap: 15px;">
-            <a class="link">
+            <a class="link" data-bs-toggle ="modal" data-bs-target="#createGroupModal" >
                 <span class="material-symbols-rounded link-icon">add_circle</span>
                 <span class="link-title">Nuevo grupo</span>
             </a>
@@ -64,7 +64,7 @@
                     <span class="link-title">Ver Grupo</span>
                 </a>
                 <!-- Nuevo alumno -->
-                <a class="link" href="#">
+                <a class="link" >
                     <span class="material-symbols-rounded link-icon">person_add</span>
                     <span class="link-title">Nuevo alumno</span>
                 </a>
@@ -80,12 +80,54 @@
 @endforeach
 </div>
 <!--FIN DESMADRE DINAMICO-->
-</div>
-           
+</div>    
         </div>
     </div>
 </div>
 <!-- hasta aqui -->
+
+<!--Inicio Desmadre de Modal-->
+<!-- MODAL CREAR GRUPO -->
+<div class="modal fade" id="createGroupModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="POST" action="{{ route('teacher.groups.createGroup') }}" class="modal-content">
+        @csrf
+        <div class="modal-header">
+            <h5 class="modal-title">Crear nuevo grupo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+            <!-- Nombre del grupo -->
+            <label class="form-label fw-bold">Nombre del grupo</label>
+            <input 
+                type="text" 
+                name="name" 
+                class="form-control mb-3" 
+                required 
+                minlength="3"
+                placeholder="Ejemplo: Introduccion a la Carne Asada">
+
+            <!-- Descripción -->
+            <label class="form-label fw-bold">Descripción (Obligatoria)</label>
+            <textarea 
+                name="description" 
+                class="form-control" 
+                rows="3"
+                placeholder="Descripción obligatoria del Grupo"></textarea>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" type="submit">Crear grupo</button>
+        </div>
+
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
 
